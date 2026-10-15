@@ -91,6 +91,7 @@ jobs:
     - name: Install Feeds(安装feeds)
       run: |
         cd $OPENWRT_PATH
+        cp $GITHUB_WORKSPACE/feeds/ipq60xx-6.12.txt $OPENWRT_PATH/feeds.conf
         ./scripts/feeds update -a
         git clone --depth 1 https://github.com/sbwml/openwrt_pkgs.git package/new/custom
         mv package/new/custom/luci-app-netspeedtest  package/new

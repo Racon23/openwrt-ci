@@ -6,8 +6,8 @@ on:
     - cron: 0 19 * * *
 
 env:
-  REPO_URL: https://github.com/LiBwrt/openwrt-6.x.git
-  REPO_BRANCH: main-nss
+  REPO_URL: https://github.com/LiBwrt/LibWrt.git
+  REPO_BRANCH: 25.12-nss
   CONFIG_FILE: configs/ipq60xx-6.12-nowifi.config
   DIY_SCRIPT: libwrt.sh
   CLASH_KERNEL: amd64
@@ -67,7 +67,7 @@ jobs:
         echo "OPENWRT_PATH=$PWD" >> $GITHUB_ENV
         VERSION_INFO=$(git show -s --date=short --format="作者: %an<br/>时间: %cd<br/>内容: %s<br/>hash: %H")
         echo "VERSION_INFO=$VERSION_INFO" >> $GITHUB_ENV
-        VERSION_KERNEL=$(grep -oP 'LINUX_KERNEL_HASH-\K[0-9]+\.[0-9]+\.[0-9]+' target/linux/generic/kernel-6.12)
+        VERSION_KERNEL=$(grep -oP 'LINUX_KERNEL_HASH-\K[0-9]+\.[0-9]+\.[0-9]+' target/linux/generic/kernel-6.12 || true)
         echo "VERSION_KERNEL=$VERSION_KERNEL" >> $GITHUB_ENV
 
     - name: Generate Variables(生成变量)

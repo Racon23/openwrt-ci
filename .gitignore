@@ -1,0 +1,15 @@
+# IDE / 工具目录
+.codebuddy/
+.vscode/
+.idea/
+
+# OpenSpec 工作区（如果不想纳入版本控制）
+openspec/
+
+# 系统文件
+Thumbs.db
+.DS_Store
+
+# 本地编译产物
+*.log
+output/

@@ -3,7 +3,8 @@ name: R2S-25.12
 on:
   workflow_dispatch:
   schedule:
-
+    - cron: 0 19 * * *
+    
 permissions:
   contents: write
 

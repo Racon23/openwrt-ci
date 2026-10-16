@@ -8,7 +8,7 @@ src-git video https://github.com/openwrt/video.git;openwrt-25.12
 src-git kenzo https://github.com/kenzok8/openwrt-packages
 src-git small https://github.com/kenzok8/small
 src-git sbwml https://github.com/sbwml/openwrt_pkgs.git
-src-git luci-app-bandix https://github.com/timsaya/luci-app-bandix.git
+src-git luci_app_bandix https://github.com/timsaya/luci-app-bandix.git
 src-git bandix https://github.com/timsaya/openwrt-bandix.git
-src-git luci-app-bandix-plus https://github.com/timsaya/luci-app-bandix-plus.git
-src-git bandix-plus https://github.com/timsaya/openwrt-bandix-plus.git
+src-git luci_app_bandix_plus https://github.com/timsaya/luci-app-bandix-plus.git
+src-git bandix_plus https://github.com/timsaya/openwrt-bandix-plus.git

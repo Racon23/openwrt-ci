@@ -12,6 +12,7 @@ env:
   REPO_URL: https://github.com/LiBwrt/LibWrt.git
   REPO_BRANCH: 25.12-nss
   CONFIG_FILE: configs/ipq60xx-6.12-wifi.config
+  FEED_FILE: feeds/ipq60xx-6.12.txt
   DIY_SCRIPT: libwrt.sh
   CLASH_KERNEL: amd64
   CACHE_TOOLCHAIN: true
@@ -94,7 +95,7 @@ jobs:
     - name: Install Feeds(安装feeds)
       run: |
         cd $OPENWRT_PATH
-        cp $GITHUB_WORKSPACE/feeds/ipq60xx-6.12.txt $OPENWRT_PATH/feeds.conf
+        cp $GITHUB_WORKSPACE/$FEED_FILE $OPENWRT_PATH/feeds.conf
         ./scripts/feeds update -a
         ./scripts/feeds install -a
   

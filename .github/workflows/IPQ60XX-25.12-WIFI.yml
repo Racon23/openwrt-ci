@@ -1,4 +1,4 @@
-name: IPQ60XX-6.12-WIFI
+name: IPQ60XX-25.12-WIFI
 
 on:
   workflow_dispatch:
@@ -9,14 +9,15 @@ permissions:
 env:
   REPO_URL: https://github.com/LiBwrt/LibWrt.git
   REPO_BRANCH: 25.12-nss
-  CONFIG_FILE: configs/ipq60xx-6.12-wifi.config
-  FEED_FILE: feeds/ipq60xx-6.12.txt
-  DIY_SCRIPT: libwrt.sh
+  CONFIG_FILE: configs/ipq60xx-25.12-wifi.config
+  FEED_FILE: feeds/ipq60xx-25.12.txt
+  DIY_SCRIPT: scripts/diy-script.sh
+  CUSTOM_FILES: files/common
   CLASH_KERNEL: amd64
   CACHE_TOOLCHAIN: true
   UPLOAD_BIN_DIR: false
   FIRMWARE_RELEASE: true
-  FIRMWARE_TAG: IPQ60XX-6.12-WIFI
+  FIRMWARE_TAG: IPQ60XX-25.12-WIFI
   TZ: Asia/Shanghai
 
 jobs:
@@ -94,12 +95,10 @@ jobs:
       run: |
         cd $OPENWRT_PATH
         cp $GITHUB_WORKSPACE/$FEED_FILE $OPENWRT_PATH/feeds.conf
-        ./scripts/feeds update -a
-        ./scripts/feeds install -a
   
     - name: Load Custom Configuration(加载自定义配置)
       run: |
-        [ -e files ] && mv files $OPENWRT_PATH/files
+        [ -n "$CUSTOM_FILES" ] && [ -e $CUSTOM_FILES ] && mkdir -p $OPENWRT_PATH/files && cp -a $CUSTOM_FILES/. $OPENWRT_PATH/files/
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE $OPENWRT_PATH/.config
         chmod +x $DIY_SCRIPT
         cd $OPENWRT_PATH
@@ -165,7 +164,7 @@ jobs:
         body: |
           **This is OpenWrt Firmware for ${{ env.FIRMWARE_TAG }}**
           ### 📒 固件信息(WIFI)
-          - 带WIFI带有线NSS的6.12内核固件
+          - 带WIFI带有线NSS的25.12内核固件
           - 💻 这是 ${{ env.FIRMWARE_TAG }} 平台使用的 OpenWrt 固件
           - ⚽ 固件源码: ${{ env.REPO_URL }}
           - 💝 源码分支: ${{ env.REPO_BRANCH }}

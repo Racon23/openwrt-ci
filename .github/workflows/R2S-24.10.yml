@@ -11,7 +11,8 @@ env:
   REPO_BRANCH: openwrt-24.10
   CONFIG_FILE: configs/r2s-24.10.config
   FEED_FILE: feeds/r2s-24.10.txt
-  DIY_SCRIPT: custom.sh
+  DIY_SCRIPT: scripts/diy-script.sh
+  CUSTOM_FILES: files/r2s
   CLASH_KERNEL: amd64
   CACHE_TOOLCHAIN: true
   UPLOAD_BIN_DIR: false
@@ -94,12 +95,10 @@ jobs:
       run: |
         cd $OPENWRT_PATH
         cp $GITHUB_WORKSPACE/$FEED_FILE $OPENWRT_PATH/feeds.conf
-        ./scripts/feeds update -a
-        ./scripts/feeds install -a
   
     - name: Load Custom Configuration(加载自定义配置)
       run: |
-        [ -e files ] && mv files $OPENWRT_PATH/files
+        [ -n "$CUSTOM_FILES" ] && [ -e $CUSTOM_FILES ] && mkdir -p $OPENWRT_PATH/files && cp -a $CUSTOM_FILES/. $OPENWRT_PATH/files/
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE $OPENWRT_PATH/.config
         chmod +x $DIY_SCRIPT
         cd $OPENWRT_PATH
@@ -164,8 +163,7 @@ jobs:
         artifacts: ${{ env.FIRMWARE_PATH }}/*
         body: |
           **This is OpenWrt Firmware for ${{ env.FIRMWARE_TAG }}**
-          ### 📒 固件信息(无WIFI)
-          - 无WIFI带有线NSS的6.12内核固件
+          ### 📒 固件信息
           - 💻 这是 ${{ env.FIRMWARE_TAG }} 平台使用的 OpenWrt 固件
           - ⚽ 固件源码: ${{ env.REPO_URL }}
           - 💝 源码分支: ${{ env.REPO_BRANCH }}

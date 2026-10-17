@@ -10,7 +10,7 @@ env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt.git
   REPO_BRANCH: openwrt-24.10
   CONFIG_FILE: configs/x86-64-24.10.config
-  FEED_FILE: feeds/x86-64-24.10.txt
+  FEED_FILE: feeds/immortalwrt-24.10.txt
   DIY_SCRIPT: scripts/diy-script.sh
   CUSTOM_FILES: files/common
   CLASH_KERNEL: amd64

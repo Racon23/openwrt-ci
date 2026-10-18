@@ -1,5 +1,5 @@
 #!/bin/bash
-
+make clean
 ./scripts/feeds update -a
 ./scripts/feeds install -a
 

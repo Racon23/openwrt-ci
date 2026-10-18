@@ -1,9 +1,0 @@
-# 交换 NanoPi R2S 的 WAN 口和 LAN 口
-# 默认: eth0=LAN(原生千兆), eth1=WAN(USB3 RTL8153)
-# 交换后: eth0=WAN(原生千兆), eth1=LAN(USB3 RTL8153)
-
-uci set network.wan.device='eth0'
-uci set network.lan.device='eth1'
-uci commit network
-
-exit 0

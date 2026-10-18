@@ -1,0 +1,4 @@
+# 路由器端脚本必须使用 LF 行尾
+# CRLF 会让 uci 存入带 \r 的值（如设备名 "eth0\r"），导致网络配置失效
+files/** text eol=lf
+*.sh text eol=lf

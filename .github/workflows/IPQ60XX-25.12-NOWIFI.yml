@@ -73,7 +73,7 @@ jobs:
 
     - name: Generate Variables(生成变量)
       run: |
-        cp $CONFIG_FILE $OPENWRT_PATH/.config
+        cp $GITHUB_WORKSPACE/$CONFIG_FILE $OPENWRT_PATH/.config
         cd $OPENWRT_PATH
         make defconfig > /dev/null 2>&1
         SOURCE_REPO="$(echo $REPO_URL | awk -F '/' '{print $(NF)}')"
@@ -91,15 +91,12 @@ jobs:
         mixkey: ${{ env.SOURCE_REPO }}-${{ env.REPO_BRANCH }}-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
         prefix: ${{ env.OPENWRT_PATH }}
     
-    - name: Install Feeds(安装feeds)
-      run: |
-        cd $OPENWRT_PATH
-        cp $GITHUB_WORKSPACE/$FEED_FILE $OPENWRT_PATH/feeds.conf
-  
     - name: Load Custom Configuration(加载自定义配置)
       run: |
+        cd $GITHUB_WORKSPACE
+        cp $GITHUB_WORKSPACE/$FEED_FILE $OPENWRT_PATH/feeds.conf
         [ -n "$CUSTOM_FILES" ] && [ -e $CUSTOM_FILES ] && mkdir -p $OPENWRT_PATH/files && cp -a $CUSTOM_FILES/. $OPENWRT_PATH/files/
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE $OPENWRT_PATH/.config
+        cp $GITHUB_WORKSPACE/$CONFIG_FILE $OPENWRT_PATH/.config
         chmod +x $DIY_SCRIPT
         cd $OPENWRT_PATH
         $GITHUB_WORKSPACE/$DIY_SCRIPT

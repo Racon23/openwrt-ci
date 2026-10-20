@@ -13,3 +13,6 @@ Thumbs.db
 # 本地编译产物
 *.log
 output/
+
+.gitignore
+ai-use

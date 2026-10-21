@@ -12,7 +12,7 @@ env:
   CONFIG_FILE: configs/r2s-25.12.config
   FEED_FILE: feeds/immortalwrt-25.12.txt
   DIY_SCRIPT: scripts/diy-script.sh
-  CUSTOM_FILES: files/r2s
+  # CUSTOM_FILES: files/r2s
   CLASH_KERNEL: amd64
   CACHE_TOOLCHAIN: true
   UPLOAD_BIN_DIR: false
@@ -95,11 +95,12 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE
         cp $GITHUB_WORKSPACE/$FEED_FILE $OPENWRT_PATH/feeds.conf
-        [ -n "$CUSTOM_FILES" ] && [ -e $CUSTOM_FILES ] && mkdir -p $OPENWRT_PATH/files && cp -a $CUSTOM_FILES/. $OPENWRT_PATH/files/
-        cp $GITHUB_WORKSPACE/$CONFIG_FILE $OPENWRT_PATH/.config
         chmod +x $DIY_SCRIPT
         cd $OPENWRT_PATH
         $GITHUB_WORKSPACE/$DIY_SCRIPT
+        cd $GITHUB_WORKSPACE
+        [ -n "$CUSTOM_FILES" ] && [ -e $CUSTOM_FILES ] && mkdir -p $OPENWRT_PATH/files && cp -a $CUSTOM_FILES/. $OPENWRT_PATH/files/
+        cp $GITHUB_WORKSPACE/$CONFIG_FILE $OPENWRT_PATH/.config
 
     - name: Download DL Package(下载DL软件包)
       run: |

@@ -1,0 +1,28 @@
+# 交换 NanoPi R2S 的 WAN/LAN 口及指示灯（LF 行尾，勿改回 CRLF）
+# 固件默认: WAN=wan/wan6(eth0 原生千兆), LAN=br-lan(eth1 USB3 RTL8153)
+# 交换后:   WAN=wan/wan6(eth1 USB3 RTL8153), LAN=br-lan(eth0 原生千兆)
+
+# 1. WAN/WAN6 换到 USB3 eth1
+uci set network.wan.device='eth1'
+uci set network.wan6.device='eth1'
+
+# 2. LAN 保持挂在 br-lan 桥上，仅把桥端口换成原生 eth0
+for dev in $(uci show network | sed -n "s/^network\.\(.*\)\.type='bridge'$/\1/p"); do
+	uci -q delete network.$dev.ports
+	uci add_list network.$dev.ports='eth0'
+done
+
+# 3. 指示灯跟随网口对调（netdev 触发器的设备选项，旧版叫 dev、新版叫 device，两者都处理）
+for led in $(uci show system | sed -n "s/^system\.\(.*\)\.trigger='netdev'$/\1/p"); do
+	for key in dev device; do
+		case "$(uci -q get system.$led.$key)" in
+			eth0) uci set system.$led.$key='eth1' ;;
+			eth1) uci set system.$led.$key='eth0' ;;
+		esac
+	done
+done
+
+uci commit network
+uci commit system
+
+exit 0

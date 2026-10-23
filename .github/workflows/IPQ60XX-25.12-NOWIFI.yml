@@ -9,9 +9,9 @@ permissions:
 env:
   REPO_URL: https://github.com/LiBwrt/LibWrt.git
   REPO_BRANCH: 25.12-nss
-  CONFIG_FILE: configs/ipq60xx-25.12-nowifi.config
+  CONFIG_FILE: configs/ipq60xx-25.12-wifi.config
   FEED_FILE: feeds/ipq60xx-25.12.txt
-  DIY_SCRIPT: scripts/diy-script.sh
+  DIY_SCRIPT: scripts/diy-script-nowifi.sh
   CUSTOM_FILES: files/common
   CLASH_KERNEL: amd64
   CACHE_TOOLCHAIN: true
@@ -96,11 +96,11 @@ jobs:
         cd $GITHUB_WORKSPACE
         cp $GITHUB_WORKSPACE/$FEED_FILE $OPENWRT_PATH/feeds.conf
         chmod +x $DIY_SCRIPT
+        cp $GITHUB_WORKSPACE/$CONFIG_FILE $OPENWRT_PATH/.config
         cd $OPENWRT_PATH
         $GITHUB_WORKSPACE/$DIY_SCRIPT
         cd $GITHUB_WORKSPACE
         [ -n "$CUSTOM_FILES" ] && [ -e $CUSTOM_FILES ] && mkdir -p $OPENWRT_PATH/files && cp -a $CUSTOM_FILES/. $OPENWRT_PATH/files/
-        cp $GITHUB_WORKSPACE/$CONFIG_FILE $OPENWRT_PATH/.config
 
     - name: Download DL Package(下载DL软件包)
       run: |

@@ -12,7 +12,7 @@ env:
   CONFIG_FILE: configs/r2s-25.12.config
   FEED_FILE: feeds/immortalwrt-25.12.txt
   DIY_SCRIPT: scripts/diy-script.sh
-  # CUSTOM_FILES: files/r2s
+  CUSTOM_FILES: files/r2s
   CLASH_KERNEL: amd64
   CACHE_TOOLCHAIN: true
   UPLOAD_BIN_DIR: false

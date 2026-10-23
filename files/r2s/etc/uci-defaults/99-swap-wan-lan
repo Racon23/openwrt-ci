@@ -14,12 +14,12 @@ done
 
 # 3. 指示灯跟随网口对调（netdev 触发器的设备选项，旧版叫 dev、新版叫 device，两者都处理）
 for led in $(uci show system | sed -n "s/^system\.\(.*\)\.trigger='netdev'$/\1/p"); do
-	for key in dev device; do
-		case "$(uci -q get system.$led.$key)" in
-			eth0) uci set system.$led.$key='eth1' ;;
-			eth1) uci set system.$led.$key='eth0' ;;
-		esac
-	done
+  for key in dev device; do
+    case "$(uci -q get system.$led.$key)" in
+      eth0) uci set system.$led.$key='eth1' ;;
+      eth1) uci set system.$led.$key='eth0' ;;
+    esac
+  done
 done
 
 uci commit network

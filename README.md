@@ -12,7 +12,7 @@
 - 源码：[immortalwrt](https://github.com/immortalwrt/immortalwrt)
 - 云编译来源：https://github.com/haiibo/OpenWrt
 - 云编译来源：https://github.com/breeze303/openwrt-ci
-- 涉及R2S，x86，ax5jdc等ipq60xx，等固件。
+- 涉及R2S（已交换wan、lan口及led），x86，ax5jdc等ipq60xx，等固件。
 
 ## 定制固件 [![](https://img.shields.io/badge/-项目基本编译教程-FFFFFF.svg)](#定制固件-)
 1. 首先要登录 Gihub 账号，然后 Fork 此项目到你自己的 Github 仓库
